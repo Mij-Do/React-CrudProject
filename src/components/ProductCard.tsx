@@ -3,11 +3,11 @@ import Button from "./ui/Button";
 
 const ProductCard = () => {
     return (
-        <div className="border border-gray-400 rounded-md ">
+        <div className="border border-gray-400 rounded-md flex flex-col justify-between">
             <Image 
                 src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D" 
                 alt="Girl with a Camera"
-                className="rounded-md mb-5"
+                className="w-full rounded-md mb-5"
                 />
             <div className="p-1">
                 <h2 className="mb-5">Product Title</h2>
