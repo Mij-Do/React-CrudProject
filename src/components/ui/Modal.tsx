@@ -1,5 +1,5 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { Children, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface IProps {
     title?: string;
@@ -18,7 +18,7 @@ return (
             <div className="flex min-h-full backdrop-blur-md items-center justify-center p-4">
                 <DialogPanel
                     transition
-                    className="w-full max-w-md rounded-xl bg-white/70 p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
+                    className="w-full max-w-md rounded-xl bg-white/80 p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
                 >
                     <DialogTitle as="h3" className="text-base/7 font-medium text-indigo-500">
                         {title}

@@ -1,4 +1,4 @@
-import type { Iproduct } from "../interface";
+import type { IFormList, Iproduct } from "../interface";
 
 
 export const productsList: Iproduct[] =
@@ -166,3 +166,31 @@ export const productsList: Iproduct[] =
                 '#FF0032',], "imageURL": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
         }
     ];
+
+    
+export const formInputList: IFormList[] = [
+    {
+        id: 'title',
+        name: 'title',
+        label: 'Product Title',
+        type: 'text'
+    },
+    {
+        id: 'description',
+        name: 'description',
+        label: 'Product Description',
+        type: 'text'
+    },
+    {
+        id: 'image',
+        name: 'imageURL',
+        label: 'Product image URL',
+        type: 'text'
+    },
+    {
+        id: 'price',
+        name: 'price',
+        label: 'Product Price',
+        type: 'text'
+    },
+];

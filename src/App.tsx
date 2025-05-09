@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ProductCard from "./components/ProductCard";
 import Button from "./components/ui/Button";
-import { productsList } from "./data";
+import { formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
+import Input from "./components/ui/Input";
+
 
 function App() {
   // states
@@ -15,7 +17,13 @@ function App() {
   
 
   // render
-  const renderProducts = productsList.map(product => <ProductCard key={product.id} product={product}/>)
+  const renderProducts = productsList.map(product => <ProductCard key={product.id} product={product}/>);
+
+  const renderInputs = formInputList.map(input => 
+  <div className="flex flex-col space-y-2">
+    <label className="text-indigo-500" htmlFor={input.id}>{input.label}</label>
+    <Input id={input.id} name={input.name}/>
+  </div>)
 
   return (
     <main className="container mx-auto">
@@ -26,8 +34,10 @@ function App() {
 
       {/* add new product */}
       <Modal isOpen={isOpen} onClose={close} title="Add New Product">
-        <label htmlFor="">Product Title</label>
-        <input type="text" />
+        <form>
+          {renderInputs}
+
+        </form>
       </Modal>  
     </main>
   )
