@@ -14,7 +14,7 @@ const ProductCard = ({product}: IProps) => {
             <Image 
                 src={imageURL}
                 alt={title}
-                className="w-35 h-35 m-auto rounded-md mb-5"
+                className="w-40 h-40 m-auto rounded-md mb-1"
             />
 
             <div className="p-1">
