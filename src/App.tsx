@@ -37,6 +37,8 @@ function App() {
 
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    setProduct(defaultProduct);
+    close();
   }
   
   
