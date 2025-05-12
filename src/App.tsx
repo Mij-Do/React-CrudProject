@@ -5,6 +5,8 @@ import { formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
 import Input from "./components/ui/Input";
 import type { Iproduct } from "./interface";
+import { productInputValidation } from "./validation";
+import ErrorMsg from "./components/ui/ErrorMsg";
 
 function App() {
     const defaultProduct = {
@@ -22,6 +24,13 @@ function App() {
   // states
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
   const [isOpen, setIsOpen] = useState(false);
+
+  const [errors, setErrors] = useState({
+    title: '',
+    description: '',
+    imageURL: '',
+    price: '',
+  });
   
   // handelers
   const open = () => setIsOpen(true);
@@ -33,26 +42,55 @@ function App() {
       ...product,
       [name]: value,
     });
+
+    setErrors({
+      ...errors,
+      [name]: '',
+    });
+
   } 
 
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    setProduct(defaultProduct);
-    close();
+
+    const {title, description, imageURL, price} = product;
+    const errors = productInputValidation ({
+      title,
+      description,
+      imageURL,
+      price,
+    });
+
+    const hasMsgError = Object.values(errors).some(value => value === '') &&
+                        Object.values(errors).every(value => value === '');
+
+    console.log(hasMsgError)
+    if (!hasMsgError) {
+      setErrors(errors);
+      return;
+    }
+
+    console.log(errors);
+    console.log('send to server!');
+
+    
+    // setProduct(defaultProduct);
+    // close();
   }
   
   
   const onCancel = () => {
-    event?.preventDefault();
     close();
   }
+
   // render
   const renderProducts = productsList.map(product => <ProductCard key={product.id} product={product}/>);
 
   const renderInputs = formInputList.map(input => 
-  <div className="flex flex-col space-y-2">
+  <div className="flex flex-col space-y-2" key={input.id}>
     <label className="text-indigo-500" htmlFor={input.id}>{input.label}</label>
     <Input id={input.id} name={input.name} value={product[input.name]} onChange={onChangeHandeler}/>
+    <ErrorMsg msg={errors[input.name]}/>
   </div>)
 
   return (
