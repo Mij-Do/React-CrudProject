@@ -1,4 +1,4 @@
-import type { IFormList, Iproduct } from "../interface";
+import type { ICategory, IFormList, Iproduct } from "../interface";
 
 
 export const productsList: Iproduct[] =
@@ -211,3 +211,30 @@ export const colors: string[] = [
     '#820000',
     '#FF0032',
 ]; 
+
+
+export const categories: ICategory[] = [
+    {
+        id: '1',
+        name: "men's clothing",
+        imageURL:
+        "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+    },
+    {
+        id: '2',
+        name: "jewelery",
+        imageURL: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+    },
+    {
+        id: '3',
+        name: "electronics",
+        imageURL:
+        "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+    },
+    {
+        id: '4',
+        name: "women's clothing",
+        imageURL:
+        "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
+    },
+]

@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import ProductCard from "./components/ProductCard";
 import Button from "./components/ui/Button";
-import { colors, formInputList, productsList } from "./data";
+import { categories, colors, formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
 import Input from "./components/ui/Input";
 import type { Iproduct } from "./interface";
@@ -9,6 +9,7 @@ import { productInputValidation } from "./validation";
 import ErrorMsg from "./components/ui/ErrorMsg";
 import CircleColors from "./components/ui/CircleColors";
 import { uuid } from "./utils/functions";
+import Select from "./components/ui/Select";
 
 function App() {
     const defaultProduct = {
@@ -27,6 +28,7 @@ function App() {
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
   const [products, setProducts] = useState (productsList);
 
+  const [selected, setSelected] = useState(categories[0]);
   const [tempColor, setTempColor] = useState <string[]> ([]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -76,8 +78,8 @@ function App() {
       return;
     }
 
-    setProducts(prev => [{...product, id: uuid (), colors: tempColor}, ...prev]);
-
+    setProducts(prev => [{...product, id: uuid (), colors: tempColor, category: selected}, ...prev]);
+    setTempColor([]);
     setProduct(defaultProduct);
     close();
   }
@@ -120,6 +122,10 @@ function App() {
         <form onSubmit={onSubmitHandeler}>
           <div className="my-2">
             {renderInputs}
+          </div>
+
+          <div className="my-2">
+            <Select selected={selected} setSelected={setSelected}/>
           </div>
 
           <div className="flex space-x-2 flex-wrap">
