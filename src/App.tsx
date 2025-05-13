@@ -25,7 +25,7 @@ function App() {
   // states
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
   const [tempColor, setTempColor] = useState <string[]> ([]);
-  console.log(tempColor)
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -33,6 +33,7 @@ function App() {
     description: '',
     imageURL: '',
     price: '',
+    colors: '',
   });
   
   // handelers
@@ -56,12 +57,13 @@ function App() {
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const {title, description, imageURL, price} = product;
+    const {title, description, imageURL, price, colors} = product;
     const errors = productInputValidation ({
       title,
       description,
       imageURL,
       price,
+      colors,
     });
 
     const hasMsgError = Object.values(errors).some(value => value === '') &&
@@ -128,6 +130,9 @@ function App() {
 
           <div className="my-2 flex space-x-2">
             {renderColors}
+          </div>
+          <div className="mb-2">
+            {tempColor.length === 0 ? <ErrorMsg msg={errors.colors}/> : null}
           </div>
 
           <div className="flex space-x-2">
