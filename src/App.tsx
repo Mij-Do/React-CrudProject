@@ -24,6 +24,8 @@ function App() {
   }
   // states
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
+  const [tempColor, setTempColor] = useState <string[]> ([]);
+  console.log(tempColor)
   const [isOpen, setIsOpen] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -90,7 +92,7 @@ function App() {
     <ErrorMsg msg={errors[input.name]}/>
   </div>)
 
-  const renderColors = colors.map(colors => <CircleColors key={colors} color={colors}/>)
+  const renderColors = colors.map(colors => <CircleColors key={colors} color={colors} onClick={() => setTempColor((prev) => [...prev ,colors])}/>)
 
   return (
     <main className="container mx-auto">
