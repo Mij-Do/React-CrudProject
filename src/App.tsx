@@ -8,6 +8,7 @@ import type { Iproduct } from "./interface";
 import { productInputValidation } from "./validation";
 import ErrorMsg from "./components/ui/ErrorMsg";
 import CircleColors from "./components/ui/CircleColors";
+import { uuid } from "./utils/functions";
 
 function App() {
     const defaultProduct = {
@@ -24,6 +25,8 @@ function App() {
   }
   // states
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
+  const [products, setProducts] = useState (productsList);
+
   const [tempColor, setTempColor] = useState <string[]> ([]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -66,15 +69,15 @@ function App() {
       colors,
     });
 
-    const hasMsgError = Object.values(errors).some(value => value === '') &&
-                        Object.values(errors).every(value => value === '');
+    const hasMsgError = Object.values(errors).some(value => value === '');
 
     if (!hasMsgError) {
       setErrors(errors);
       return;
     }
 
-    
+    setProducts(prev => [{...product, id: uuid (), colors: tempColor}, ...prev]);
+
     setProduct(defaultProduct);
     close();
   }
@@ -85,7 +88,7 @@ function App() {
   }
 
   // render
-  const renderProducts = productsList.map(product => <ProductCard key={product.id} product={product}/>);
+  const renderProducts = products.map(product => <ProductCard key={product.id} product={product}/>);
 
   const renderInputs = formInputList.map(input => 
   <div className="flex flex-col space-y-2" key={input.id}>

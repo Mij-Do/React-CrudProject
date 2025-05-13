@@ -2,13 +2,19 @@ import type { Iproduct } from "../interface";
 import { txtLength } from "../utils/functions";
 import Image from "./Image";
 import Button from "./ui/Button";
+import CircleColors from "./ui/CircleColors";
 
 interface IProps {
     product: Iproduct;
 }
 
 const ProductCard = ({product}: IProps) => {
-    const {title, description, imageURL, price} = product;
+    const {title, description, imageURL, price, colors} = product;
+
+    const renderColors = colors.map(colors => 
+        <CircleColors key={colors} 
+            color={colors} 
+        />)
     return (
         <div className="border border-gray-400 rounded-md flex flex-col justify-between">
             <Image 
@@ -22,9 +28,7 @@ const ProductCard = ({product}: IProps) => {
                 <p className="mb-5">{txtLength(description, 80)}</p>
 
                 <div className="flex space-x-2 mb-5">
-                    <span className="w-5 h-5 rounded-full bg-indigo-500 block cursor-pointer"></span>
-                    <span className="w-5 h-5 rounded-full bg-red-500 block cursor-pointer"></span>
-                    <span className="w-5 h-5 rounded-full bg-orange-500 block cursor-pointer"></span>
+                    {renderColors}
                 </div>
 
                 <div className="flex justify-between items-center mb-5">
