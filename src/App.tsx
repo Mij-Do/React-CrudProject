@@ -92,7 +92,16 @@ function App() {
     <ErrorMsg msg={errors[input.name]}/>
   </div>)
 
-  const renderColors = colors.map(colors => <CircleColors key={colors} color={colors} onClick={() => setTempColor((prev) => [...prev ,colors])}/>)
+  const renderColors = colors.map(colors => 
+    <CircleColors key={colors} 
+      color={colors} 
+      onClick={() => {
+        if (tempColor.includes(colors)) {
+          setTempColor((prev) => prev.filter(items => items !== colors));
+          return;
+        }
+        setTempColor((prev) => [...prev ,colors])
+      }} />)
 
   return (
     <main className="container mx-auto">
@@ -106,6 +115,15 @@ function App() {
         <form onSubmit={onSubmitHandeler}>
           <div className="my-2">
             {renderInputs}
+          </div>
+
+          <div className="flex space-x-2 flex-wrap">
+            {tempColor.map(colors => 
+              <span key={colors} 
+                    style={{backgroundColor: colors}} 
+                    className="rounded-md text-white block p-1 text-sm mb-1">{colors}
+              </span>
+            )}
           </div>
 
           <div className="my-2 flex space-x-2">
