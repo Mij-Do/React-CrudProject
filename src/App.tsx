@@ -1,12 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import ProductCard from "./components/ProductCard";
 import Button from "./components/ui/Button";
-import { formInputList, productsList } from "./data";
+import { colors, formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
 import Input from "./components/ui/Input";
 import type { Iproduct } from "./interface";
 import { productInputValidation } from "./validation";
 import ErrorMsg from "./components/ui/ErrorMsg";
+import CircleColors from "./components/ui/CircleColors";
 
 function App() {
     const defaultProduct = {
@@ -64,18 +65,14 @@ function App() {
     const hasMsgError = Object.values(errors).some(value => value === '') &&
                         Object.values(errors).every(value => value === '');
 
-    console.log(hasMsgError)
     if (!hasMsgError) {
       setErrors(errors);
       return;
     }
 
-    console.log(errors);
-    console.log('send to server!');
-
     
-    // setProduct(defaultProduct);
-    // close();
+    setProduct(defaultProduct);
+    close();
   }
   
   
@@ -93,6 +90,8 @@ function App() {
     <ErrorMsg msg={errors[input.name]}/>
   </div>)
 
+  const renderColors = colors.map(colors => <CircleColors key={colors} color={colors}/>)
+
   return (
     <main className="container mx-auto">
       <Button className="bg-indigo-500 hover:bg-indigo-400 my-5" onClick={open}>Add New Product</Button>
@@ -107,6 +106,10 @@ function App() {
             {renderInputs}
           </div>
 
+          <div className="my-2 flex space-x-2">
+            {renderColors}
+          </div>
+
           <div className="flex space-x-2">
             <Button className="bg-indigo-500 hover:bg-indigo-400">Submit</Button>
             <Button className="bg-gray-500 hover:bg-gray-400" onClick={onCancel}>Cancel</Button>
@@ -117,4 +120,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
