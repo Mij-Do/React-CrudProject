@@ -30,6 +30,7 @@ function App() {
   const [products, setProducts] = useState (productsList);
 
   const [productToEdit, setProductToEdit] = useState <Iproduct> (defaultProduct);
+  const [productToEditIdx, setProductToEditIdx] = useState <number> (0);
 
   const [selected, setSelected] = useState(categories[0]);
   const [tempColor, setTempColor] = useState <string[]> ([]);
@@ -110,6 +111,30 @@ function App() {
   const onEditSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
 
+    const {title, description, imageURL, price, colors} = productToEdit;
+    const errors = productInputValidation ({
+      title,
+      description,
+      imageURL,
+      price,
+      colors,
+    });
+
+    const hasMsgError = Object.values(errors).some(value => value === '');
+
+    if (!hasMsgError) {
+      setErrors(errors);
+      return;
+    }
+
+  // Update Products 
+    const updateProducts = [...products];
+    updateProducts[productToEditIdx] = productToEdit;
+    setProducts(updateProducts);
+
+    setProductToEdit(defaultProduct);
+    setTempColor([]);
+    closeEditModal();
   }
   
   
@@ -118,13 +143,15 @@ function App() {
   }
 
   // render
-  const renderProducts = products.map(product => 
+  const renderProducts = products.map((product, idx) => 
     <ProductCard 
       key={product.id} 
       product={product}
       openEditModal={openEditModal}
       setProductToEdit={setProductToEdit}
-      />);
+      setProductToEditIdx={setProductToEditIdx}
+      idx={idx}
+    />);
 
   const renderInputs = formInputList.map(input => 
   <div className="flex flex-col space-y-2" key={input.id}>
