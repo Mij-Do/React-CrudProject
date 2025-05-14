@@ -11,6 +11,7 @@ import CircleColors from "./components/ui/CircleColors";
 import { uuid } from "./utils/functions";
 import Select from "./components/ui/Select";
 import type { TProductName } from "./types";
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
     const defaultProduct = {
@@ -90,6 +91,7 @@ function App() {
     setTempColor([]);
     setProduct(defaultProduct);
     close();
+    toast('Product Added!');
   }
 
 
@@ -140,11 +142,18 @@ function App() {
     setProductToEdit(defaultProduct);
     setTempColor([]);
     closeEditModal();
+    toast('Product Updated!');
   }
   
   
   const onCancel = () => {
     close();
+  }
+
+  const removeProducts = () => {
+    const filtered = products.filter(product => product.id !== productToEdit.id);
+    setProducts(filtered);
+    toast('Product Removed!');
   }
 
   // render
@@ -156,6 +165,7 @@ function App() {
       setProductToEdit={setProductToEdit}
       setProductToEditIdx={setProductToEditIdx}
       idx={idx}
+      removeProducts={removeProducts}
     />);
 
   const renderInputs = formInputList.map(input => 
@@ -264,7 +274,15 @@ function App() {
             <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeEditModal}>Cancel</Button>
           </div>
         </form>
-      </Modal>  
+      </Modal> 
+      <Toaster 
+        toastOptions={{
+          style: {
+            backgroundColor: "black",
+            color: "white",
+          },
+        }}
+      />
     </main>
   )
 }

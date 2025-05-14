@@ -10,9 +10,10 @@ interface IProps {
     setProductToEdit: (product: Iproduct) => void;
     setProductToEditIdx: (value: number) => void;
     idx: number;
+    removeProducts: () => void;
 }
 
-const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx}: IProps) => {
+const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx, removeProducts}: IProps) => {
     const {title, description, imageURL, price, colors} = product;
 
     const renderColors = colors.map(colors => 
@@ -24,6 +25,11 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
         setProductToEdit(product);
         openEditModal();
         setProductToEditIdx(idx);
+    }
+
+    const onRemove = () => {
+        setProductToEdit(product);
+        removeProducts ();
     }
     return (
         <div className="border border-gray-400 rounded-md flex flex-col justify-between">
@@ -52,7 +58,7 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
 
                 <div className="flex space-x-2">
                     <Button className="bg-indigo-600 hover:bg-indigo-400" onClick={onEdit}>Edit</Button>
-                    <Button className="bg-red-500 hover:bg-red-400">Delete</Button>
+                    <Button className="bg-red-500 hover:bg-red-400" onClick={onRemove}>Delete</Button>
                 </div>
             </div>
         </div>
