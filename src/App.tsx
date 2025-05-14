@@ -128,8 +128,11 @@ function App() {
     }
 
   // Update Products 
-    const updateProducts = [...products];
-    updateProducts[productToEditIdx] = productToEdit;
+    const updateProducts = [...products, ];
+    updateProducts[productToEditIdx] = {
+      ...productToEdit,
+      colors: tempColor.concat(productToEdit.colors),
+    };
     setProducts(updateProducts);
 
     setProductToEdit(defaultProduct);
@@ -154,18 +157,22 @@ function App() {
     />);
 
   const renderInputs = formInputList.map(input => 
-  <div className="flex flex-col space-y-2" key={input.id}>
-    <label className="text-indigo-500" htmlFor={input.id}>{input.label}</label>
-    <Input id={input.id} name={input.name} value={product[input.name]} onChange={onChangeHandeler}/>
-    <ErrorMsg msg={errors[input.name]}/>
-  </div>)
+    <div className="flex flex-col space-y-2" key={input.id}>
+      <label className="text-indigo-500" htmlFor={input.id}>{input.label}</label>
+      <Input id={input.id} name={input.name} value={product[input.name]} onChange={onChangeHandeler}/>
+      <ErrorMsg msg={errors[input.name]}/>
+    </div>)
 
   const renderColors = colors.map(colors => 
     <CircleColors key={colors} 
       color={colors} 
       onClick={() => {
         if (tempColor.includes(colors)) {
-          setTempColor((prev) => prev.filter(items => items !== colors));
+          setTempColor(prev => prev.filter(items => items !== colors));
+          return;
+        }
+        if (productToEdit.colors.includes(colors)) {
+          setTempColor(prev => prev.filter(items => items !== colors));
           return;
         }
         setTempColor((prev) => [...prev ,colors])
@@ -232,6 +239,18 @@ function App() {
             {renderProductWithErrorMsg('description', 'Product Description', 'description')}
             {renderProductWithErrorMsg('imageURL', 'Product ImageURL', 'imageURL')}
             {renderProductWithErrorMsg('price', 'Product Price', 'price')}
+          </div>
+
+          <div className="flex space-x-2 flex-wrap">
+            {tempColor.concat(productToEdit.colors).map(colors => 
+              <span key={colors} 
+                    style={{backgroundColor: colors}} 
+                    className="rounded-md text-white block p-1 text-sm mb-1">{colors}
+              </span>
+            )}
+          </div>
+          <div className="my-2 flex space-x-2">
+            {renderColors}
           </div>
           
           <div className="flex space-x-2">
