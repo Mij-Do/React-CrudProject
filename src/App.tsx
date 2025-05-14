@@ -10,6 +10,7 @@ import ErrorMsg from "./components/ui/ErrorMsg";
 import CircleColors from "./components/ui/CircleColors";
 import { uuid } from "./utils/functions";
 import Select from "./components/ui/Select";
+import type { TProductName } from "./types";
 
 function App() {
     const defaultProduct = {
@@ -28,10 +29,13 @@ function App() {
   const [product, setProduct] = useState<Iproduct>(defaultProduct);
   const [products, setProducts] = useState (productsList);
 
+  const [productToEdit, setProductToEdit] = useState <Iproduct> (defaultProduct);
+
   const [selected, setSelected] = useState(categories[0]);
   const [tempColor, setTempColor] = useState <string[]> ([]);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
   const [errors, setErrors] = useState({
     title: '',
@@ -45,6 +49,10 @@ function App() {
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
 
+  const openEditModal = () => setIsOpenEditModal(true);
+  const closeEditModal = () => setIsOpenEditModal(false);
+
+  // add new produc
   const onChangeHandeler = (event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;
     setProduct({
@@ -58,7 +66,6 @@ function App() {
     });
 
   } 
-
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -83,6 +90,27 @@ function App() {
     setProduct(defaultProduct);
     close();
   }
+
+
+  // edit products
+  const onChangeEditHandeler = (event: ChangeEvent<HTMLInputElement>) => {
+    const {value, name} = event.target;
+    setProductToEdit({
+      ...productToEdit,
+      [name]: value,
+    });
+
+    setErrors({
+      ...errors,
+      [name]: '',
+    });
+
+  } 
+
+  const onEditSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
+    event.preventDefault();
+
+  }
   
   
   const onCancel = () => {
@@ -90,7 +118,13 @@ function App() {
   }
 
   // render
-  const renderProducts = products.map(product => <ProductCard key={product.id} product={product}/>);
+  const renderProducts = products.map(product => 
+    <ProductCard 
+      key={product.id} 
+      product={product}
+      openEditModal={openEditModal}
+      setProductToEdit={setProductToEdit}
+      />);
 
   const renderInputs = formInputList.map(input => 
   <div className="flex flex-col space-y-2" key={input.id}>
@@ -110,6 +144,16 @@ function App() {
         setTempColor((prev) => [...prev ,colors])
       }} />)
 
+  const renderProductWithErrorMsg = (id: string, label: string, name: TProductName) => {
+      return (
+        <div className="flex flex-col space-y-2" key={id}>
+            <label className="text-indigo-500" htmlFor={id}>{label}</label>
+            <Input id={id} name={name} value={productToEdit[name]} onChange={onChangeEditHandeler}/>
+            <ErrorMsg msg={errors[name]}/>
+          </div>
+      )
+  }
+
   return (
     <main className="container mx-auto">
       <Button className="bg-indigo-500 hover:bg-indigo-400 my-5" onClick={open}>Add New Product</Button>
@@ -117,7 +161,7 @@ function App() {
         {renderProducts}
       </div>
 
-      {/* add new product */}
+      {/* Add new product */}
       <Modal isOpen={isOpen} onClose={close} title="Add New Product">
         <form onSubmit={onSubmitHandeler}>
           <div className="my-2">
@@ -147,6 +191,25 @@ function App() {
           <div className="flex space-x-2">
             <Button className="bg-indigo-500 hover:bg-indigo-400">Submit</Button>
             <Button className="bg-gray-500 hover:bg-gray-400" onClick={onCancel}>Cancel</Button>
+          </div>
+        </form>
+      </Modal>  
+
+
+      {/* Edit product */}
+      <Modal isOpen={isOpenEditModal} onClose={closeEditModal} title="Edit Product">
+        <form onSubmit={onEditSubmitHandeler}>
+          
+          <div className="my-2">
+            {renderProductWithErrorMsg('title', 'Product Title', 'title')}
+            {renderProductWithErrorMsg('description', 'Product Description', 'description')}
+            {renderProductWithErrorMsg('imageURL', 'Product ImageURL', 'imageURL')}
+            {renderProductWithErrorMsg('price', 'Product Price', 'price')}
+          </div>
+          
+          <div className="flex space-x-2">
+            <Button className="bg-indigo-500 hover:bg-indigo-400">Update</Button>
+            <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeEditModal}>Cancel</Button>
           </div>
         </form>
       </Modal>  
