@@ -128,11 +128,13 @@ function App() {
     }
 
   // Update Products 
-    const updateProducts = [...products, ];
+    const updateProducts = [...products];
     updateProducts[productToEditIdx] = {
       ...productToEdit,
       colors: tempColor.concat(productToEdit.colors),
+      category: productToEdit.category,
     };
+
     setProducts(updateProducts);
 
     setProductToEdit(defaultProduct);
@@ -239,6 +241,10 @@ function App() {
             {renderProductWithErrorMsg('description', 'Product Description', 'description')}
             {renderProductWithErrorMsg('imageURL', 'Product ImageURL', 'imageURL')}
             {renderProductWithErrorMsg('price', 'Product Price', 'price')}
+          </div>
+
+          <div className="my-4">
+            <Select selected={productToEdit.category} setSelected={(value => setProductToEdit({...productToEdit, category: value}))}/>
           </div>
 
           <div className="flex space-x-2 flex-wrap">
