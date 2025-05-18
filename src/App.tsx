@@ -186,12 +186,12 @@ function App() {
   const removeProducts = () => {
     const filtered = products.filter(product => product.id !== productToEdit.id);
     setProducts(filtered);
+    closeConfirmModal();
+    toast('Product Removed!')
   }
   
   const onConfirmSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
-    removeProducts();
-    toast('Product Removed!');
   }
 
 
@@ -326,7 +326,7 @@ function App() {
           </div>
           
           <div className="flex space-x-2">
-            <Button className="bg-red-500 hover:bg-red-400" onClick={closeConfirmModal}>Delete</Button>
+            <Button className="bg-red-500 hover:bg-red-400" onClick={removeProducts}>Delete</Button>
             <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeConfirmModal}>Cancel</Button>
           </div>
         </form>
