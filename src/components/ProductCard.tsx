@@ -50,7 +50,7 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
                 <div className="flex justify-between items-center mb-5">
                     <span className="block text-indigo-400">${price}</span>
                     <Image 
-                        src={category.imageURL}
+                        src={category.imageURL || imageURL}
                         alt={title}
                         className="w-10 h-10 rounded-full object-contain"
                     />
