@@ -38,6 +38,8 @@ function App() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+
 
   const [errors, setErrors] = useState({
     title: '',
@@ -53,6 +55,9 @@ function App() {
 
   const openEditModal = () => setIsOpenEditModal(true);
   const closeEditModal = () => setIsOpenEditModal(false);
+
+  const openConfirmModal = () => setIsOpenConfirmModal(true);
+  const closeConfirmModal = () => setIsOpenConfirmModal(false);
 
   // add new produc
   const onChangeHandeler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -153,8 +158,14 @@ function App() {
   const removeProducts = () => {
     const filtered = products.filter(product => product.id !== productToEdit.id);
     setProducts(filtered);
+  }
+  
+  const onConfirmSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
+    event.preventDefault();
+    removeProducts();
     toast('Product Removed!');
   }
+
 
   // render
   const renderProducts = products.map((product, idx) => 
@@ -165,7 +176,7 @@ function App() {
       setProductToEdit={setProductToEdit}
       setProductToEditIdx={setProductToEditIdx}
       idx={idx}
-      removeProducts={removeProducts}
+      openConfirmModal={openConfirmModal}
     />);
 
   const renderInputs = formInputList.map(input => 
@@ -275,6 +286,23 @@ function App() {
           </div>
         </form>
       </Modal> 
+
+
+      {/* confirm delete product */}
+      <Modal isOpen={isOpenConfirmModal} onClose={closeConfirmModal} title="Confirm Delete Product">
+        <form onSubmit={onConfirmSubmitHandeler}>
+          
+          <div className="my-3">
+            <p className="text-indigo-400">Are You Sure That You Want to Remove This Product?</p>
+          </div>
+          
+          <div className="flex space-x-2">
+            <Button className="bg-red-500 hover:bg-red-400" onClick={closeConfirmModal}>Delete</Button>
+            <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeConfirmModal}>Cancel</Button>
+          </div>
+        </form>
+      </Modal> 
+
       <Toaster 
         toastOptions={{
           style: {

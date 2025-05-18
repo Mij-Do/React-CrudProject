@@ -10,10 +10,10 @@ interface IProps {
     setProductToEdit: (product: Iproduct) => void;
     setProductToEditIdx: (value: number) => void;
     idx: number;
-    removeProducts: () => void;
+    openConfirmModal: () => void;
 }
 
-const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx, removeProducts}: IProps) => {
+const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx, openConfirmModal}: IProps) => {
     const {title, description, imageURL, price, colors, category} = product;
 
     const renderColors = colors.map(colors => 
@@ -29,7 +29,7 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
 
     const onRemove = () => {
         setProductToEdit(product);
-        removeProducts ();
+        openConfirmModal();
     }
     return (
         <div className="border border-gray-400 rounded-md flex flex-col justify-between">
