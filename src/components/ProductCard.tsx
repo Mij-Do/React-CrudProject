@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx, removeProducts}: IProps) => {
-    const {title, description, imageURL, price, colors} = product;
+    const {title, description, imageURL, price, colors, category} = product;
 
     const renderColors = colors.map(colors => 
         <CircleColors key={colors} 
@@ -50,7 +50,7 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
                 <div className="flex justify-between items-center mb-5">
                     <span className="block text-indigo-400">${price}</span>
                     <Image 
-                        src={imageURL}
+                        src={category.imageURL}
                         alt={title}
                         className="w-10 h-10 rounded-full object-contain"
                     />
