@@ -46,7 +46,6 @@ function App() {
     description: '',
     imageURL: '',
     price: '',
-    colors: '',
   });
   
   // handelers
@@ -71,22 +70,22 @@ function App() {
       ...errors,
       [name]: '',
     });
-
   } 
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const {title, description, imageURL, price, colors} = product;
+    const {title, description, imageURL, price,} = product;
     const errors = productInputValidation ({
       title,
       description,
       imageURL,
       price,
-      colors,
     });
+    
 
-    const hasMsgError = Object.values(errors).some(value => value === '');
-
+    const hasMsgError = Object.values(errors).some(value => value === '') 
+    && Object.values(errors).every(value => value === '');
+    
     if (!hasMsgError) {
       setErrors(errors);
       return;
@@ -118,16 +117,16 @@ function App() {
   const onEditSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
 
-    const {title, description, imageURL, price, colors} = productToEdit;
+    const {title, description, imageURL, price} = productToEdit;
     const errors = productInputValidation ({
       title,
       description,
       imageURL,
       price,
-      colors,
     });
 
-    const hasMsgError = Object.values(errors).some(value => value === '');
+    const hasMsgError = Object.values(errors).some(value => value === '') 
+    && Object.values(errors).every(value => value === '');
 
     if (!hasMsgError) {
       setErrors(errors);
@@ -242,7 +241,7 @@ function App() {
             {renderColors}
           </div>
           <div className="mb-2">
-            {tempColor.length === 0 ? <ErrorMsg msg={errors.colors}/> : null}
+            {tempColor.length === 0 ? <ErrorMsg msg=""/> : null}
           </div>
 
           <div className="flex space-x-2">
