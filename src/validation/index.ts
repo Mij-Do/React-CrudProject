@@ -29,3 +29,15 @@ export const productInputValidation = (
 
     return errors;
 }
+
+
+export const validationColors = (product: {colors: string[]}) => {
+    const errorColors = {
+        colors: '',
+    }
+
+    if (product.colors.length === 0) {
+        errorColors.colors = 'Pick a Color, Please!';
+    }
+    return errorColors;
+} 

@@ -5,7 +5,7 @@ import { categories, colors, formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
 import Input from "./components/ui/Input";
 import type { Iproduct } from "./interface";
-import { productInputValidation } from "./validation";
+import { productInputValidation, validationColors } from "./validation";
 import ErrorMsg from "./components/ui/ErrorMsg";
 import CircleColors from "./components/ui/CircleColors";
 import { uuid } from "./utils/functions";
@@ -47,6 +47,10 @@ function App() {
     imageURL: '',
     price: '',
   });
+
+  const [errorColors, setErrorColors] = useState({
+    colors: '',
+  })
   
   // handelers
   const open = () => setIsOpen(true);
@@ -57,6 +61,7 @@ function App() {
 
   const openConfirmModal = () => setIsOpenConfirmModal(true);
   const closeConfirmModal = () => setIsOpenConfirmModal(false);
+
 
   // add new produc
   const onChangeHandeler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -70,11 +75,16 @@ function App() {
       ...errors,
       [name]: '',
     });
+
+    setErrorColors({
+      ...errorColors,
+      [name]: tempColor,
+    });
   } 
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const {title, description, imageURL, price,} = product;
+    const {title, description, imageURL, price, colors} = product;
     const errors = productInputValidation ({
       title,
       description,
@@ -82,12 +92,21 @@ function App() {
       price,
     });
     
+    const errorColors = validationColors({
+      colors,
+    })
+    
 
     const hasMsgError = Object.values(errors).some(value => value === '') 
     && Object.values(errors).every(value => value === '');
-    
+
+    console.log(errorColors)
+    console.log(hasMsgError)
+    console.log(errors)
+
     if (!hasMsgError) {
       setErrors(errors);
+      setErrorColors(errorColors);
       return;
     }
 
@@ -112,12 +131,17 @@ function App() {
       [name]: '',
     });
 
+    setErrorColors({
+      ...errorColors,
+      [name]: tempColor,
+    });
+
   } 
 
   const onEditSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
 
-    const {title, description, imageURL, price} = productToEdit;
+    const {title, description, imageURL, price, colors} = productToEdit;
     const errors = productInputValidation ({
       title,
       description,
@@ -125,11 +149,16 @@ function App() {
       price,
     });
 
+    const errorColors = validationColors({
+      colors,
+    })
+
     const hasMsgError = Object.values(errors).some(value => value === '') 
     && Object.values(errors).every(value => value === '');
 
     if (!hasMsgError) {
       setErrors(errors);
+      setErrorColors(errorColors);
       return;
     }
 
@@ -240,9 +269,10 @@ function App() {
           <div className="my-2 flex space-x-2">
             {renderColors}
           </div>
-          <div className="mb-2">
-            {tempColor.length === 0 ? <ErrorMsg msg=""/> : null}
-          </div>
+
+          <div className="my-3">
+            {tempColor.length === 0 ? <ErrorMsg msg={errorColors.colors}/> : null}
+          </div>  
 
           <div className="flex space-x-2">
             <Button className="bg-indigo-500 hover:bg-indigo-400">Submit</Button>
