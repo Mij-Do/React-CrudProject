@@ -50,7 +50,7 @@ function App() {
 
   const [errorColors, setErrorColors] = useState({
     colors: '',
-  })
+  });
   
   // handelers
   const open = () => setIsOpen(true);
@@ -78,7 +78,7 @@ function App() {
 
     setErrorColors({
       ...errorColors,
-      [name]: tempColor,
+      [name]: [],
     });
   } 
   const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
@@ -133,7 +133,7 @@ function App() {
 
     setErrorColors({
       ...errorColors,
-      [name]: tempColor,
+      [name]: [],
     });
 
   } 
@@ -241,7 +241,7 @@ function App() {
 
   return (
     <main className="container mx-auto">
-      <Button className="bg-indigo-500 hover:bg-indigo-400 my-5" onClick={open}>Add New Product</Button>
+      <Button className="bg-indigo-600 hover:bg-indigo-400 my-5" onClick={open}>Add New Product</Button>
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2 grid-cols-1 ">
         {renderProducts}
       </div>
@@ -275,8 +275,8 @@ function App() {
           </div>  
 
           <div className="flex space-x-2">
-            <Button className="bg-indigo-500 hover:bg-indigo-400">Submit</Button>
-            <Button className="bg-gray-500 hover:bg-gray-400" onClick={onCancel}>Cancel</Button>
+            <Button className="bg-indigo-600 hover:bg-indigo-400">Submit</Button>
+            <Button className="bg-gray-600 hover:bg-gray-400" onClick={onCancel}>Cancel</Button>
           </div>
         </form>
       </Modal>  
@@ -310,8 +310,8 @@ function App() {
           </div>
           
           <div className="flex space-x-2">
-            <Button className="bg-indigo-500 hover:bg-indigo-400">Update</Button>
-            <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeEditModal}>Cancel</Button>
+            <Button className="bg-indigo-600 hover:bg-indigo-400">Update</Button>
+            <Button className="bg-gray-600 hover:bg-gray-400" onClick={closeEditModal}>Cancel</Button>
           </div>
         </form>
       </Modal> 
@@ -326,8 +326,8 @@ function App() {
           </div>
           
           <div className="flex space-x-2">
-            <Button className="bg-red-500 hover:bg-red-400" onClick={removeProducts}>Delete</Button>
-            <Button className="bg-gray-500 hover:bg-gray-400" onClick={closeConfirmModal}>Cancel</Button>
+            <Button className="bg-red-600 hover:bg-red-400" onClick={removeProducts}>Delete</Button>
+            <Button className="bg-gray-600 hover:bg-gray-400" onClick={closeConfirmModal}>Cancel</Button>
           </div>
         </form>
       </Modal> 
