@@ -38,7 +38,7 @@ export const productsList: IProduct[] =
         },
         {
             "id": '5', "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet", "price": '695', "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
-            "category": { name: "jewelery", imageURL: '' }, "colors": ['#a855f7',
+            "category": { name: "jeweler", imageURL: '' }, "colors": ['#a855f7',
                 '#2563eb',
                 '#84D2C5',
                 '#13005A',
@@ -47,7 +47,7 @@ export const productsList: IProduct[] =
         },
         {
             "id": '6', "title": "Solid Gold Petite Micropave ", "price": '168', "description": "Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.",
-            "category": { name: "jewelery", imageURL: '' }, "colors": ['#84D2C5',
+            "category": { name: "jeweler", imageURL: '' }, "colors": ['#84D2C5',
                 '#13005A',
                 '#A31ACB',
                 '#FF6E31',
@@ -56,7 +56,7 @@ export const productsList: IProduct[] =
         },
         {
             "id": '7', "title": "White Gold Plated Princess", "price": '9.99', "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-            "category": { name: "jewelery", imageURL: '' }, "colors": ['#a855f7',
+            "category": { name: "jeweler", imageURL: '' }, "colors": ['#a855f7',
                 '#2563eb',
                 '#84D2C5',
                 '#13005A',
@@ -67,7 +67,7 @@ export const productsList: IProduct[] =
         },
         {
             "id": '8', "title": "Pierced Owl Rose Gold Plated Stainless Steel Double", "price": '10.99', "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
-            "category": { name: "jewelery", imageURL: '' }, "colors": ['#CB1C8D',
+            "category": { name: "jeweler", imageURL: '' }, "colors": ['#CB1C8D',
                 '#000000',
                 '#645CBB',
                 '#1F8A70',
@@ -222,7 +222,7 @@ export const categories: ICategory[] = [
     },
     {
         id: '2',
-        name: "jewelery",
+        name: "jeweler",
         imageURL: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
     },
     {

@@ -66,21 +66,22 @@ function App() {
   // add new product
   const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;
-    setProduct({
-      ...product,
+    setProduct(prev => ({
+      ...prev,
       [name]: value,
-    });
+    }));
 
-    setErrors({
-      ...errors,
+    setErrors(prev => ({
+      ...prev,
       [name]: '',
-    });
+    }));
 
-    setErrorColors({
-      ...errorColors,
+    setErrorColors(prev => ({
+      ...prev,
       [name]: [],
-    });
+    }));
   }, [])
+
   const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -120,20 +121,20 @@ function App() {
 
   const onChangeEditHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;
-    setProductToEdit({
-      ...productToEdit,
+    setProductToEdit(prev => ({
+      ...prev,
       [name]: value,
-    });
+    }));
 
-    setErrors({
-      ...errors,
+    setErrors(prev => ({
+      ...prev,
       [name]: '',
-    });
+    }));
 
-    setErrorColors({
-      ...errorColors,
+    setErrorColors(prev => ({
+      ...prev,
       [name]: [],
-    });
+    }));
 
   } 
 
