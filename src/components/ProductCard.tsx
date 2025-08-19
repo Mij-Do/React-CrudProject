@@ -1,13 +1,14 @@
-import type { Iproduct } from "../interface";
+import { memo } from "react";
+import type { IProduct } from "../interface";
 import { txtLength } from "../utils/functions";
 import Image from "./Image";
 import Button from "./ui/Button";
 import CircleColors from "./ui/CircleColors";
 
 interface IProps {
-    product: Iproduct;
+    product: IProduct;
     openEditModal: () => void;
-    setProductToEdit: (product: Iproduct) => void;
+    setProductToEdit: (product: IProduct) => void;
     setProductToEditIdx: (value: number) => void;
     idx: number;
     openConfirmModal: () => void;
@@ -65,4 +66,4 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
     )
 }
 
-export default ProductCard;
+export default memo(ProductCard);

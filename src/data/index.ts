@@ -1,7 +1,7 @@
-import type { ICategory, IFormList, Iproduct } from "../interface";
+import type { ICategory, IFormList, IProduct } from "../interface";
 
 
-export const productsList: Iproduct[] =
+export const productsList: IProduct[] =
     [
         {
             "id": '1',

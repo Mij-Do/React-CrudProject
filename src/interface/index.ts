@@ -1,6 +1,6 @@
 import type { TProductName } from "../types";
 
-export interface Iproduct {
+export interface IProduct {
     id: string | undefined;
     title: string;
     price: string;

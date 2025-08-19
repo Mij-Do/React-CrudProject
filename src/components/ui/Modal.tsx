@@ -1,5 +1,5 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { type ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
 interface IProps {
     title?: string;
@@ -35,4 +35,4 @@ return (
 )
 }
 
-export default Modal;
+export default memo(Modal);

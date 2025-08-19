@@ -1,10 +1,10 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useCallback, useState, type ChangeEvent, type FormEvent } from "react";
 import ProductCard from "./components/ProductCard";
 import Button from "./components/ui/Button";
 import { categories, colors, formInputList, productsList } from "./data";
 import Modal from "./components/ui/Modal";
 import Input from "./components/ui/Input";
-import type { Iproduct } from "./interface";
+import type { IProduct } from "./interface";
 import { productInputValidation, validationColors } from "./validation";
 import ErrorMsg from "./components/ui/ErrorMsg";
 import CircleColors from "./components/ui/CircleColors";
@@ -27,10 +27,10 @@ function App() {
     colors: [],
   }
   // states
-  const [product, setProduct] = useState<Iproduct>(defaultProduct);
+  const [product, setProduct] = useState<IProduct>(defaultProduct);
   const [products, setProducts] = useState (productsList);
 
-  const [productToEdit, setProductToEdit] = useState <Iproduct> (defaultProduct);
+  const [productToEdit, setProductToEdit] = useState <IProduct> (defaultProduct);
   const [productToEditIdx, setProductToEditIdx] = useState <number> (0);
 
   const [selected, setSelected] = useState(categories[0]);
@@ -52,19 +52,19 @@ function App() {
     colors: '',
   });
   
-  // handelers
-  const open = () => setIsOpen(true);
+  // handlers
+  const open = useCallback(() => setIsOpen(true), []);
   const close = () => setIsOpen(false);
 
-  const openEditModal = () => setIsOpenEditModal(true);
+  const openEditModal = useCallback(() => setIsOpenEditModal(true), []);
   const closeEditModal = () => setIsOpenEditModal(false);
 
-  const openConfirmModal = () => setIsOpenConfirmModal(true);
+  const openConfirmModal = useCallback(() => setIsOpenConfirmModal(true), []);
   const closeConfirmModal = () => setIsOpenConfirmModal(false);
 
 
-  // add new produc
-  const onChangeHandeler = (event: ChangeEvent<HTMLInputElement>) => {
+  // add new product
+  const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;
     setProduct({
       ...product,
@@ -80,8 +80,8 @@ function App() {
       ...errorColors,
       [name]: [],
     });
-  } 
-  const onSubmitHandeler = (event: FormEvent<HTMLFormElement>): void => {
+  }, [])
+  const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     const {title, description, imageURL, price, colors} = product;
@@ -115,11 +115,10 @@ function App() {
     setProduct(defaultProduct);
     close();
     toast('Product Added!');
-  }
+  }, [])
 
 
-  // edit products
-  const onChangeEditHandeler = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeEditHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;
     setProductToEdit({
       ...productToEdit,
@@ -138,7 +137,8 @@ function App() {
 
   } 
 
-  const onEditSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
+  // edit products
+  const onEditSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
 
     const {title, description, imageURL, price, colors} = productToEdit;
@@ -176,7 +176,7 @@ function App() {
     setTempColor([]);
     closeEditModal();
     toast('Product Updated!');
-  }
+  }, [])
   
   
   const onCancel = () => {
@@ -190,7 +190,7 @@ function App() {
     toast('Product Removed!')
   }
   
-  const onConfirmSubmitHandeler = (event: FormEvent<HTMLFormElement>): void  => {
+  const onConfirmSubmitHandler = (event: FormEvent<HTMLFormElement>): void  => {
     event.preventDefault();
   }
 
@@ -210,7 +210,7 @@ function App() {
   const renderInputs = formInputList.map(input => 
     <div className="flex flex-col space-y-2" key={input.id}>
       <label className="text-indigo-500" htmlFor={input.id}>{input.label}</label>
-      <Input id={input.id} name={input.name} value={product[input.name]} onChange={onChangeHandeler}/>
+      <Input id={input.id} name={input.name} value={product[input.name]} onChange={onChangeHandler}/>
       <ErrorMsg msg={errors[input.name]}/>
     </div>)
 
@@ -233,7 +233,7 @@ function App() {
       return (
         <div className="flex flex-col space-y-2" key={id}>
             <label className="text-indigo-500" htmlFor={id}>{label}</label>
-            <Input id={id} name={name} value={productToEdit[name]} onChange={onChangeEditHandeler}/>
+            <Input id={id} name={name} value={productToEdit[name]} onChange={onChangeEditHandler}/>
             <ErrorMsg msg={errors[name]}/>
           </div>
       )
@@ -248,7 +248,7 @@ function App() {
 
       {/* Add new product */}
       <Modal isOpen={isOpen} onClose={close} title="Add New Product">
-        <form onSubmit={onSubmitHandeler}>
+        <form onSubmit={onSubmitHandler}>
           <div className="my-2">
             {renderInputs}
           </div>
@@ -284,7 +284,7 @@ function App() {
 
       {/* Edit product */}
       <Modal isOpen={isOpenEditModal} onClose={closeEditModal} title="Edit Product">
-        <form onSubmit={onEditSubmitHandeler}>
+        <form onSubmit={onEditSubmitHandler}>
           
           <div className="my-2">
             {renderProductWithErrorMsg('title', 'Product Title', 'title')}
@@ -319,7 +319,7 @@ function App() {
 
       {/* confirm delete product */}
       <Modal isOpen={isOpenConfirmModal} onClose={closeConfirmModal} title="Confirm Delete Product">
-        <form onSubmit={onConfirmSubmitHandeler}>
+        <form onSubmit={onConfirmSubmitHandler}>
           
           <div className="my-3">
             <p className="text-indigo-400">Are You Sure That You Want to Remove This Product?</p>
