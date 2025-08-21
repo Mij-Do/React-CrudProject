@@ -11,6 +11,7 @@ export interface IProduct {
         imageURL: string,
     };
     colors: string[];
+    qty: number;
 }
 
 

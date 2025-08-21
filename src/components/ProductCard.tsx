@@ -4,6 +4,8 @@ import { txtLength } from "../utils/functions";
 import Image from "./Image";
 import Button from "./ui/Button";
 import CircleColors from "./ui/CircleColors";
+import { addToCartAction } from "../app/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 interface IProps {
     product: IProduct;
@@ -15,6 +17,8 @@ interface IProps {
 }
 
 const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEditIdx, idx, openConfirmModal}: IProps) => {
+    
+    const dispatch = useDispatch();
     const {title, description, imageURL, price, colors, category} = product;
 
     const renderColors = colors.map(colors => 
@@ -58,11 +62,11 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
                 </div>
 
                 <div className="flex space-x-2">
-                    <Button className="bg-indigo-600 hover:bg-indigo-400" onClick={onEdit}>Edit</Button>
-                    <Button className="bg-red-600 hover:bg-red-400" onClick={onRemove}>Delete</Button>
+                    <Button fullWidth variant={"default"} onClick={onEdit}>Edit</Button>
+                    <Button fullWidth variant={"danger"} onClick={onRemove}>Delete</Button>
                 </div>
                 <div className="mt-1">
-                    <Button className="bg-gray-600 hover:bg-gray-400">Add To Cart</Button>
+                    <Button fullWidth variant={"cancel"} onClick={() => dispatch(addToCartAction(product))}>Add To Cart</Button>
                 </div>
             </div>
         </div>
