@@ -61,6 +61,9 @@ const ProductCard = ({product, openEditModal, setProductToEdit, setProductToEdit
                     <Button className="bg-indigo-600 hover:bg-indigo-400" onClick={onEdit}>Edit</Button>
                     <Button className="bg-red-600 hover:bg-red-400" onClick={onRemove}>Delete</Button>
                 </div>
+                <div className="mt-1">
+                    <Button className="bg-gray-600 hover:bg-gray-400">Add To Cart</Button>
+                </div>
             </div>
         </div>
     )
