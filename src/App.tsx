@@ -12,6 +12,7 @@ import { uuid } from "./utils/functions";
 import Select from "./components/ui/Select";
 import type { TProductName } from "./types";
 import toast, { Toaster } from 'react-hot-toast';
+import Navbar from "./components/Navbar";
 
 function App() {
     const defaultProduct = {
@@ -25,6 +26,7 @@ function App() {
       imageURL: '',
     },
     colors: [],
+    qty: 0,
   }
   // states
 
@@ -243,7 +245,7 @@ function App() {
 
   return (
     <main className="container mx-auto">
-      <Button fullWidth variant={"default"} className="my-3" onClick={open}>Add New Product</Button>
+      <Navbar open={open}/>
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2 grid-cols-1 ">
         {renderProducts}
       </div>
