@@ -279,8 +279,8 @@ function App() {
           </div>  
 
           <div className="flex space-x-2">
-            <Button className="bg-indigo-600 hover:bg-indigo-400">Submit</Button>
-            <Button className="bg-gray-600 hover:bg-gray-400" onClick={onCancel}>Cancel</Button>
+            <Button fullWidth variant={"default"}>Submit</Button>
+            <Button fullWidth variant={"cancel"} onClick={onCancel}>Cancel</Button>
           </div>
         </form>
       </Modal>  
@@ -314,8 +314,8 @@ function App() {
           </div>
           
           <div className="flex space-x-2">
-            <Button className="bg-indigo-600 hover:bg-indigo-400">Update</Button>
-            <Button className="bg-gray-600 hover:bg-gray-400" onClick={closeEditModal}>Cancel</Button>
+            <Button fullWidth variant={"default"}>Update</Button>
+            <Button fullWidth variant={"cancel"} type="button" onClick={closeEditModal}>Cancel</Button>
           </div>
         </form>
       </Modal> 
@@ -330,8 +330,8 @@ function App() {
           </div>
           
           <div className="flex space-x-2">
-            <Button className="bg-red-600 hover:bg-red-400" onClick={removeProducts}>Delete</Button>
-            <Button className="bg-gray-600 hover:bg-gray-400" onClick={closeConfirmModal}>Cancel</Button>
+            <Button fullWidth variant={"danger"} onClick={removeProducts}>Delete</Button>
+            <Button fullWidth variant={"cancel"} onClick={closeConfirmModal}>Cancel</Button>
           </div>
         </form>
       </Modal> 
